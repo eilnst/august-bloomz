@@ -1,60 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Surprise Page</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Happy Birthday!</title>
+  <style>
+    body { font-family: 'Segoe UI'; background: #ffe8ec; padding:20px; text-align:center; }
+    h1 { font-size:2.5rem; color:#d63384; }
+    ul { list-style:none; padding:0; }
+    .final { margin-top:2rem; font-style:italic; color:#007bff; font-size:1.2rem; }
+  </style>
 </head>
 <body>
-  <div class="container" id="output"></div>
+  <h1>Happy Birthday, <span id="nameSpan"></span>!</h1>
+  <div id="ageDetail"></div>
+  <div class="final">Let me go now and do some chills... you enjoy your birthday! 🎂</div>
 
   <script>
-    function calculateAge(dob) {
-      const birthDate = new Date(dob);
-      const now = new Date();
-      const diffMs = now - birthDate;
-
-      if (isNaN(diffMs) || diffMs < 0) return null;
-
-      const years = now.getFullYear() - birthDate.getFullYear();
-      const months = now.getMonth() - birthDate.getMonth();
-      const days = now.getDate() - birthDate.getDate();
-
-      const totalSeconds = Math.floor(diffMs / 1000);
-      const totalMinutes = Math.floor(totalSeconds / 60);
-      const totalHours = Math.floor(totalMinutes / 60);
-      const totalDays = Math.floor(totalHours / 24);
-
-      return { years, months, days, totalSeconds, totalMinutes, totalHours, totalDays };
-    }
-
-    const name = localStorage.getItem("bday_name");
-    const dob = localStorage.getItem("bday_dob");
-
-    const output = document.getElementById("output");
-
-    if (!name || !dob) {
-      output.innerHTML = "<h2>Couldn’t fetch your details! Please go back and try again.</h2>";
+    const params = new URLSearchParams(location.search);
+    const name = params.get('name'), dobVal = params.get('dob');
+    if (!name || !dobVal) {
+      document.getElementById('ageDetail').innerText = 'Could not fetch your details.';
     } else {
-      const age = calculateAge(dob);
-      if (!age) {
-        output.innerHTML = "<h2>Invalid Date of Birth. Please go back and enter correctly.</h2>";
-      } else {
-        output.innerHTML = `
-          <h1>🎉 Happy Birthday, ${name}! 🎉</h1>
-          <p>You are now:</p>
-          <ul>
-            <li><strong>${age.years}</strong> years old</li>
-            <li><strong>${age.months}</strong> months</li>
-            <li><strong>${age.days}</strong> days</li>
-            <li><strong>${age.totalMinutes}</strong> minutes lived</li>
-            <li><strong>${age.totalSeconds}</strong> seconds alive!</li>
-          </ul>
-          <p>Let me go now and do some chills... You enjoy your birthday, ${name}! 🎂</p>
-        `;
-      }
+      document.getElementById('nameSpan').innerText = name;
+      const dob = new Date(dobVal), now = new Date(), diff = now - dob;
+      const sec = Math.floor(diff/1000), min = Math.floor(sec/60), hrs = Math.floor(min/60), days = Math.floor(hrs/24);
+      const mos = Math.floor(days/30.44), yrs = Math.floor(mos/12);
+      document.getElementById('ageDetail').innerHTML = `
+        You are now:<br>
+        • ${yrs} years<br>
+        • ${mos} months<br>
+        • ${days} days<br>
+        • ${hrs} hours<br>
+        • ${min} minutes<br>
+        • ${sec} seconds old!
+      `;
     }
   </script>
 </body>
 </html>
+
