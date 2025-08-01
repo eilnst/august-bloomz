@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>August Bloomz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>On which day were you born?</h1>
+    <form id="dobForm">
+      <input type="text" id="name" placeholder="Enter your name" required /><br />
+      <input type="date" id="dob" required /><br />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("dobForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const dob = document.getElementById("dob").value;
+
+      if (!name || !dob) {
+        alert("Please enter both name and DOB.");
+        return;
+      }
+
+      const selectedDate = new Date(dob);
+      const today = new Date();
+
+      if (selectedDate >= today || isNaN(selectedDate.getTime())) {
+        alert("Please enter a valid past date.");
+        return;
+      }
+
+      const query = `birthday.html?name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}`;
+      window.location.href = query;
+    });
+  </script>
+</body>
+</html>
