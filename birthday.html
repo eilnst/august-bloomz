@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday!</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container" id="birthday-container">
+    <h1 id="greeting">Happy Birthday!</h1>
+    <p id="message"></p>
+    <canvas id="confetti-canvas"></canvas>
+    <button onclick="goBack()">Let me go now →</button>
+  </div>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+
+    window.onload = () => {
+      const name = getQueryParam("name");
+      const dob = getQueryParam("dob");
+
+      if (!name || !dob) {
+        document.getElementById("message").innerText = "Couldn't fetch your birthday. Please go back.";
+        return;
+      }
+
+      const today = new Date();
+      const birthDate = new Date(dob);
+
+      if (today.getDate() === birthDate.getDate() && today.getMonth() === birthDate.getMonth()) {
+        document.getElementById("greeting").innerText = `Happy Birthday, ${name}! 🎉`;
+        document.getElementById("message").innerText = `Wishing you a day filled with joy, warmth, and smiles. Enjoy every moment! 🎂🌟`;
+        launchConfetti();
+      } else {
+        document.getElementById("greeting").innerText = `Hi ${name},`;
+        document.getElementById("message").innerText = `Today may not be your birthday, but I’m still glad you’re here. 😊`;
+      }
+    };
+
+    function launchConfetti() {
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = Array.from({ length: 150 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        size: Math.random() * 6 + 4,
+        speed: Math.random() * 3 + 2
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let p of pieces) {
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+          p.y += p.speed;
+          if (p.y > canvas.height) p.y = -10;
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+  </script>
+</body>
+</html>
