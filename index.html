@@ -3,39 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>August Bloomz</title>
-  <link rel="stylesheet" href="birthday.css" />
+  <title>Birthday Bloom</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="container">
     <h1>On which day were you born?</h1>
     <input type="date" id="dob" />
-    <button onclick="showBirthday()">Enter</button>
-    <p id="error"></p>
+    <button onclick="storeDOB()">Enter</button>
+    <p id="error" class="error"></p>
   </div>
 
-  <div class="result hidden" id="result">
-    <h2>Happy Birthday! 🎂</h2>
-    <p id="ageMessage"></p>
-    <p class="chill">Let me go now and do some chills... and you, <strong>you just enjoy your birthday!</strong> 🎉</p>
-    <canvas id="confetti-canvas"></canvas>
-    <audio id="birthday-audio" src="birthday.mp3" preload="auto"></audio>
-  </div>
-
-  <script>
-    function showBirthday() {
-      const dobInput = document.getElementById("dob").value;
-      const errorMsg = document.getElementById("error");
-      const resultBox = document.getElementById("result");
-      const ageMsg = document.getElementById("ageMessage");
-
-      if (!dobInput) {
-        errorMsg.textContent = "Please enter a valid date of birth.";
-        return;
-      }
-
-      const dob = new Date(dobInput);
-      const now = new Date();
-      if (dob >= now) {
-        errorMsg.textContent = "Your birthdate must be in th
-
+  <script src="script.js"></script>
+</body>
+</html>
