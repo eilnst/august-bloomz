@@ -3,46 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday!</title>
+  <title>Surprise Page</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1 id="greeting"></h1>
-    <p id="ageDetails"></p>
-    <p id="finalMessage" class="hidden">Let me go now and do some chills... YOU enjoy YOUR DAY because it’s your BIRTHDAY! 🥳</p>
-  </div>
+  <div class="container" id="output"></div>
 
   <script>
-    function calculateAgeDetails(dob) {
+    function calculateAge(dob) {
       const birthDate = new Date(dob);
       const now = new Date();
       const diffMs = now - birthDate;
 
-      const seconds = Math.floor(diffMs / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
-      const months = Math.floor(days / 30.44); // avg month length
-      const years = Math.floor(months / 12);
+      if (isNaN(diffMs) || diffMs < 0) return null;
 
-      return { years, months, days, hours, minutes, seconds };
+      const years = now.getFullYear() - birthDate.getFullYear();
+      const months = now.getMonth() - birthDate.getMonth();
+      const days = now.getDate() - birthDate.getDate();
+
+      const totalSeconds = Math.floor(diffMs / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      const totalDays = Math.floor(totalHours / 24);
+
+      return { years, months, days, totalSeconds, totalMinutes, totalHours, totalDays };
     }
 
-    const name = localStorage.getItem("name");
-    const dob = localStorage.getItem("dob");
+    const name = localStorage.getItem("bday_name");
+    const dob = localStorage.getItem("bday_dob");
+
+    const output = document.getElementById("output");
 
     if (!name || !dob) {
-      document.querySelector(".container").innerHTML = "<h2>Error: Missing data. Please go back and enter your details again.</h2>";
+      output.innerHTML = "<h2>Couldn’t fetch your details! Please go back and try again.</h2>";
     } else {
-      const age = calculateAgeDetails(dob);
-      document.getElementById("greeting").innerText = `Happy Birthday, ${name}! 🎂`;
-      document.getElementById("ageDetails").innerText =
-        `You are now:\n${age.years} years\n${age.months} months\n${age.days} days\n${age.hours} hours\n${age.minutes} minutes\n${age.seconds} seconds OLD!`;
-
-      setTimeout(() => {
-        document.getElementById("finalMessage").classList.remove("hidden");
-      }, 3000);
+      const age = calculateAge(dob);
+      if (!age) {
+        output.innerHTML = "<h2>Invalid Date of Birth. Please go back and enter correctly.</h2>";
+      } else {
+        output.innerHTML = `
+          <h1>🎉 Happy Birthday, ${name}! 🎉</h1>
+          <p>You are now:</p>
+          <ul>
+            <li><strong>${age.years}</strong> years old</li>
+            <li><strong>${age.months}</strong> months</li>
+            <li><strong>${age.days}</strong> days</li>
+            <li><strong>${age.totalMinutes}</strong> minutes lived</li>
+            <li><strong>${age.totalSeconds}</strong> seconds alive!</li>
+          </ul>
+          <p>Let me go now and do some chills... You enjoy your birthday, ${name}! 🎂</p>
+        `;
+      }
     }
   </script>
 </body>
