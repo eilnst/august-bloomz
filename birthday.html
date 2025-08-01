@@ -3,76 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎉 Happy Birthday!</title>
+  <title>Happy Birthday!</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 3rem;
-      color: #ff4e50;
-    }
-    #ageDisplay {
-      font-size: 1.5rem;
-      margin: 20px 0;
-      color: #444;
-    }
-    .fun-message {
-      font-size: 1.2rem;
-      color: #333;
-      margin-top: 30px;
-    }
-  </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday! 🎂</h1>
-  <div id="ageDisplay">Calculating your age...</div>
-
-  <div class="fun-message">
-    Let me go now and do some chills...<br/>
-    and you enjoy your birthday! 🥳
+  <div class="container">
+    <h1 id="greeting"></h1>
+    <p id="ageDetails"></p>
+    <p id="finalMessage" class="hidden">Let me go now and do some chills... YOU enjoy YOUR DAY because it’s your BIRTHDAY! 🥳</p>
   </div>
 
   <script>
-    // Get the DOB from localStorage
-    const dobStr = localStorage.getItem("dob");
-    if (dobStr) {
-      const dob = new Date(dobStr);
+    function calculateAgeDetails(dob) {
+      const birthDate = new Date(dob);
       const now = new Date();
+      const diffMs = now - birthDate;
 
-      let years = now.getFullYear() - dob.getFullYear();
-      let months = now.getMonth() - dob.getMonth();
-      let days = now.getDate() - dob.getDate();
-      let hours = now.getHours() - dob.getHours();
-      let minutes = now.getMinutes() - dob.getMinutes();
-      let seconds = now.getSeconds() - dob.getSeconds();
+      const seconds = Math.floor(diffMs / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const months = Math.floor(days / 30.44); // avg month length
+      const years = Math.floor(months / 12);
 
-      if (seconds < 0) { seconds += 60; minutes--; }
-      if (minutes < 0) { minutes += 60; hours--; }
-      if (hours < 0) { hours += 24; days--; }
-      if (days < 0) {
-        months--;
-        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += prevMonth.getDate();
-      }
-      if (months < 0) {
-        months += 12;
-        years--;
-      }
+      return { years, months, days, hours, minutes, seconds };
+    }
 
-      document.getElementById("ageDisplay").innerHTML =
-        `You are now <strong>${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds</strong> old! 🎈`;
+    const name = localStorage.getItem("name");
+    const dob = localStorage.getItem("dob");
+
+    if (!name || !dob) {
+      document.querySelector(".container").innerHTML = "<h2>Error: Missing data. Please go back and enter your details again.</h2>";
     } else {
-      document.getElementById("ageDisplay").innerText = "Oops! Couldn't fetch DOB.";
+      const age = calculateAgeDetails(dob);
+      document.getElementById("greeting").innerText = `Happy Birthday, ${name}! 🎂`;
+      document.getElementById("ageDetails").innerText =
+        `You are now:\n${age.years} years\n${age.months} months\n${age.days} days\n${age.hours} hours\n${age.minutes} minutes\n${age.seconds} seconds OLD!`;
+
+      setTimeout(() => {
+        document.getElementById("finalMessage").classList.remove("hidden");
+      }, 3000);
     }
   </script>
 </body>
