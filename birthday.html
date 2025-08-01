@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Special Surprise</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #b3e5fc, #e1f5fe);
+      background-image: url('https://images.unsplash.com/photo-1508919801845-fc2ae1bc0a9a?auto=format&fit=crop&w=1050&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #333;
+      text-align: center;
+    }
+
+    .cloud-message {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      border-radius: 30px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      display: inline-block;
+      margin-top: 50px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      max-width: 80%;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      margin-top: 30px;
+    }
+
+    #birthdayName {
+      color: #4a148c;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    #ageDetails {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #1a237e;
+    }
+
+    .wish-section {
+      margin-top: 40px;
+    }
+
+    textarea {
+      width: 80%;
+      height: 120px;
+      padding: 10px;
+      border: 2px solid #90caf9;
+      border-radius: 12px;
+      font-size: 1rem;
+      resize: none;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #00c853;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #007e33;
+    }
+
+    @keyframes confetti {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(600px); opacity: 0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      animation: confetti 4s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="cloud-message">
+    It was <strong>Raksha Bandhan</strong> on <strong>16 August 2008</strong>, Shukla Paksha of Shravan month. 🌸
+  </div>
+
+  <h1>Happy Birthday <span id="birthdayName"></span> 🎉</h1>
+  <p id="ageDetails"></p>
+
+  <div class="wish-section">
+    <h2>Have something in your mind? 💭<br>Write it here as your wish ✨</h2>
+    <form action="https://formspree.io/f/xanbbrez" method="POST">
+      <textarea name="wish" placeholder="Your birthday wish..."></textarea>
+      <br>
+      <button type="submit">Send Wish</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
