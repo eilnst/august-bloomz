@@ -4,19 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>August Bloomz</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: 'Segoe UI'; background: #fff5e6; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
+    .container { background:#fff; padding:2rem; border-radius:10px; text-align:center; }
+    button { padding:0.6rem 1rem; background:#ff9900; border:none; color:white; font-size:1rem; border-radius:5px; cursor:pointer; }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>On which day were you born?</h1>
     <form id="dobForm">
-      <label for="dob">Select your Date of Birth:</label>
-      <input type="date" id="dob" name="dob" required />
+      <input type="text" id="name" placeholder="Enter your name" required /><br>
+      <input type="date" id="dob" required /><br>
       <button type="submit">Submit</button>
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('dobForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const dobVal = document.getElementById('dob').value;
+      if (!name || !dobVal) return alert('Please fill both fields.');
+      const dob = new Date(dobVal), now = new Date();
+      if (dob >= now || isNaN(dob.getTime())) return alert('Please enter a valid past date.');
+      const url = `birthday.html?name=${encodeURIComponent(name)}&dob=${dobVal}`;
+      window.location.href = url;
+    });
+  </script>
 </body>
 </html>
 
