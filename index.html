@@ -4,64 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>August Bloomz</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #fff5e6;
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #e67300;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    input {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 0.5rem;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #ff9900;
-      border: none;
-      padding: 0.7rem;
-      font-size: 1rem;
-      color: white;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #e68a00;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>On which day were you born?</h1>
-  <form>
-    <input type="text" id="name" placeholder="Enter your name" required />
-    <input type="date" id="dob" required />
-    <button type="submit">Let's Go!</button>
-  </form>
+  <div class="container">
+    <h1>On which day were you born?</h1>
+    <form id="dobForm">
+      <label for="dob">Select your Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
-  <script>
-    document.querySelector("form").addEventListener("submit", function (e) {
-      e.preventDefault();
+  <script src="script.js"></script>
+</body>
+</html>
 
-      const name = doc
 
 
