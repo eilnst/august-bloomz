@@ -3,44 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Birthday Bloom</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>August Bloomz</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #fff5e6;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #e67300;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #ff9900;
+      border: none;
+      padding: 0.7rem;
+      font-size: 1rem;
+      color: white;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e68a00;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>On which day were you born?</h1>
-    <form id="birthdayForm">
-      <input type="text" id="name" placeholder="Enter your name" required />
-      <input type="date" id="dob" required />
-      <button type="submit">Let's Go</button>
-    </form>
-  </div>
+  <h1>On which day were you born?</h1>
+  <form>
+    <input type="text" id="name" placeholder="Enter your name" required />
+    <input type="date" id="dob" required />
+    <button type="submit">Let's Go!</button>
+  </form>
 
   <script>
-  document.querySelector("form").addEventListener("submit", function (e) {
-    e.preventDefault();
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const dob = document.getElementById("dob").value;
+      const name = doc
 
-    if (!name || !dob) {
-      alert("Please fill in both your name and date of birth.");
-      return;
-    }
-
-    const dobDate = new Date(dob);
-    const today = new Date();
-
-    if (dobDate >= today || isNaN(dobDate.getTime())) {
-      alert("Please enter a valid past date of birth.");
-      return;
-    }
-
-    const url = `birthday.html?name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}`;
-    window.location.href = url;
-  });
-</script>
-
-</body>
-</html>
 
