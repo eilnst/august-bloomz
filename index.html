@@ -17,21 +17,30 @@
   </div>
 
   <script>
-    document.getElementById("birthdayForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const dob = document.getElementById("dob").value;
+  document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      if (!name || !dob) {
-        alert("Please fill in both fields.");
-        return;
-      }
+    const name = document.getElementById("name").value.trim();
+    const dob = document.getElementById("dob").value;
 
-      localStorage.setItem("bday_name", name);
-      localStorage.setItem("bday_dob", dob);
-      window.location.href = "birthday.html";
-    });
-  </script>
+    if (!name || !dob) {
+      alert("Please fill in both your name and date of birth.");
+      return;
+    }
+
+    const dobDate = new Date(dob);
+    const today = new Date();
+
+    if (dobDate >= today || isNaN(dobDate.getTime())) {
+      alert("Please enter a valid past date of birth.");
+      return;
+    }
+
+    const url = `birthday.html?name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}`;
+    window.location.href = url;
+  });
+</script>
+
 </body>
 </html>
 
