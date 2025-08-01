@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Surprise</title>
   <link rel="stylesheet" href="style.css" />
-
-  <meta charset="UTF-8">
-  <title>Welcome</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="form-container">
-    <h2>Welcome to Your Special August Page 🌿</h2>
+  <div class="container">
+    <h1>🎉 Enter Your Birthday 🎉</h1>
     <form id="dobForm">
-      <input type="text" id="name" placeholder="Enter your name" required>
-      <input type="date" id="dob" required>
-      <button type="submit">Let’s Begin</button>
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" required />
+
+      <button type="submit">Let's Go</button>
     </form>
   </div>
-  <script src="script.js"></script>
-  <script src="script.js"></script>
 
+  <script>
+    document.getElementById("dobForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const dob = document.getElementById("dob").value;
+
+      if (!name || !dob) {
+        alert("Please fill in both name and date of birth.");
+        return;
+      }
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("dob", dob);
+
+      window.location.href = "birthday.html";
+    });
+  </script>
 </body>
 </html>
