@@ -1,42 +1,56 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fffaf0;
   margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff7f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #333;
 }
 
-.container {
+.container, .wish-container {
   text-align: center;
-  margin-top: 10%;
-  padding: 2rem;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffe8d6;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 400px;
 }
 
-h1 {
-  color: #ff6600;
+h1, h2 {
+  color: #d45d79;
 }
 
-input, button {
-  margin: 0.5rem;
-  padding: 0.6rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-input {
+input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  margin: 15px 0;
+  border-radius: 8px;
   border: 1px solid #ccc;
 }
 
 button {
-  background-color: #ff9900;
+  padding: 10px 20px;
+  background-color: #f7a072;
   color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-#confetti-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
+button:hover {
+  background-color: #f4845f;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.ending {
+  margin-top: 20px;
+  font-style: italic;
+  color: #555;
 }
